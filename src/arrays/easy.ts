@@ -827,22 +827,22 @@
 
 // rotateOptimal([[1,2,3],[4,5,6],[7,8,9]])
 
-const twoSum = (arr: number[], target: number) => {
-  let left = 0;
-  let right = arr.length - 1;
-  while (left < right) {
-    const sum = arr[left] + arr[right];
-    if (sum === target) {
-      return [left + 1, right + 1];
-    }
-    if (sum < target) {
-      left++;
-    } else {
-      right--;
-    }
-  }
-};
-console.log(twoSum([1, 2, 3], 5));
+// const twoSum = (arr: number[], target: number) => {
+//   let left = 0;
+//   let right = arr.length - 1;
+//   while (left < right) {
+//     const sum = arr[left] + arr[right];
+//     if (sum === target) {
+//       return [left + 1, right + 1];
+//     }
+//     if (sum < target) {
+//       left++;
+//     } else {
+//       right--;
+//     }
+//   }
+// };
+// console.log(twoSum([1, 2, 3], 5));
 
 const reverseStr = (str: string): string => {
   let arr = str.split('');
