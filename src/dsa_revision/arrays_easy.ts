@@ -161,16 +161,64 @@
 
 // console.log(nums)
 
-const removeDuplicates = (nums: number[]): number => {
-  let left = 0;
-  for (let right = 1; right < nums.length; right++) {
-    if (nums[right] !== nums[left]) {
-      left++;
-      nums[left] = nums[right];
+// const removeDuplicates = (nums: number[]): number => {
+//   let left = 0;
+//   for (let right = 1; right < nums.length; right++) {
+//     if (nums[right] !== nums[left]) {
+//       left++;
+//       nums[left] = nums[right];
+//     }
+//   }
+
+//   return left + 1;
+// };
+
+// console.log(removeDuplicates([1,2,2,3,5,5,7]))
+
+// const plusOne = (nums: number[]): number[] => {
+//   for (let i = nums.length - 1; i >= 0; i--) {
+//     if (nums[i] < 9) {
+//       nums[i]++;
+//       return nums;
+//     }
+//     nums[i] = 0;
+//   }
+//   nums.unshift(1);
+
+//   return nums;
+// };
+// console.log(plusOne([0, 9, 9]));
+
+const intersectionOfTwoArrays = (nums1: number[], nums2: number[]): number[] => {
+  let result: number[] = [];
+  for(let i = 0; i<nums1.length; i++){
+    for(let j=0; j<nums2.length; j++){
+      if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
+        result.push(nums1[i]);
+      }
     }
   }
+  return result;
+}
+console.log(intersectionOfTwoArrays([1,2,3,4,5], [3,4,5,6,7]))
 
-  return left + 1;
-};
-
-console.log(removeDuplicates([1,2,2,3,5,5,7]))
+const intersectionOfTwoArraysOpt = (nums1: number[], nums2: number[]): number[] => {
+  let result: number[] = [];
+  let i = 0;
+  let j = 0;
+  while(i<nums1.length && j<nums2.length){
+    if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
+      result.push(nums1[i]);
+      i++;
+      j++;
+    }
+    else if(nums1[i] < nums2[j]){
+      i++;
+    }
+    else{
+      j++;
+    }
+  }
+  return result;
+}
+console.log(intersectionOfTwoArraysOpt([1,2,3,4,5], [3,4,5,6,7]))
