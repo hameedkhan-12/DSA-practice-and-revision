@@ -189,36 +189,153 @@
 // };
 // console.log(plusOne([0, 9, 9]));
 
-const intersectionOfTwoArrays = (nums1: number[], nums2: number[]): number[] => {
-  let result: number[] = [];
-  for(let i = 0; i<nums1.length; i++){
-    for(let j=0; j<nums2.length; j++){
-      if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
-        result.push(nums1[i]);
-      }
-    }
-  }
-  return result;
-}
-console.log(intersectionOfTwoArrays([1,2,3,4,5], [3,4,5,6,7]))
+// const intersectionOfTwoArrays = (nums1: number[], nums2: number[]): number[] => {
+//   let result: number[] = [];
+//   for(let i = 0; i<nums1.length; i++){
+//     for(let j=0; j<nums2.length; j++){
+//       if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
+//         result.push(nums1[i]);
+//       }
+//     }
+//   }
+//   return result;
+// }
+// console.log(intersectionOfTwoArrays([1,2,3,4,5], [3,4,5,6,7]))
 
-const intersectionOfTwoArraysOpt = (nums1: number[], nums2: number[]): number[] => {
-  let result: number[] = [];
-  let i = 0;
-  let j = 0;
-  while(i<nums1.length && j<nums2.length){
-    if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
-      result.push(nums1[i]);
-      i++;
-      j++;
-    }
-    else if(nums1[i] < nums2[j]){
-      i++;
-    }
-    else{
-      j++;
-    }
+// const intersectionOfTwoArraysOpt = (nums1: number[], nums2: number[]): number[] => {
+//   let result: number[] = [];
+//   let i = 0;
+//   let j = 0;
+//   while(i<nums1.length && j<nums2.length){
+//     if(nums1[i] === nums2[j] && !result.includes(nums1[i])){
+//       result.push(nums1[i]);
+//       i++;
+//       j++;
+//     }
+//     else if(nums1[i] < nums2[j]){
+//       i++;
+//     }
+//     else{
+//       j++;
+//     }
+//   }
+//   return result;
+// }
+// console.log(intersectionOfTwoArraysOpt([1,2,3,4,5], [3,4,5,6,7]))
+
+// const unionOfTwoSortedArrays = (arr1: number[], arr2: number[]) => {
+//   const result: number[] = []
+//   for(let i = 0; i<arr1.length; i++){
+//     for(let j = 0; j<arr2.length; j++){
+//       if(arr1[i]<arr2[j] && !result.includes(arr1[i])){
+//         result.push(arr1[i])
+//       }else{
+//         result.push(arr1[j])
+//       }
+//     }
+//   }
+//   return result
+// // }
+// const unionOfTwoSortedArrays = (arr1: number[], arr2: number[]) => {
+//   let i = 0;
+//   let j = 0;
+//   let result: number[] = [];
+
+//   while (i < arr1.length && j < arr2.length) {
+//     if (arr1[i] < arr2[j] && result[result.length - 1] !== arr1[i]) {
+//       result.push(arr1[i]);
+//       i++;
+//     } else if (arr1[i] === arr2[j] && result[result.length - 1] !== arr1[i]) {
+//       result.push(arr1[i]);
+//       i++;
+//       j++;
+//     } else {
+//       if (result[result.length - 1] !== arr2[j]) {
+//         result.push(arr2[j]);
+//         j++;
+//       }
+//     }
+//   }
+//   while (i < arr1.length && result[result.length - 1] !== arr1[i]) {
+//     result.push(arr1[i]);
+//   }
+//   while (j < arr2.length && result[result.length - 1] !== arr2[j]) {
+//     result.push(arr2[j]);
+//   }
+//   return result;
+// };
+// console.log(unionOfTwoSortedArrays([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]));
+
+// const runningSum = (arr: number[]): number[] => {
+//   for (let i = 1; i < arr.length; i++) {
+//     arr[i] += arr[i - 1];
+//   }
+//   return arr;
+// }
+
+// console.log(runningSum([1, 2, 3, 4]))
+
+// const runningSumBrute = (arr: number[]): number[] => {
+//   const result: number[] = [];
+//   for(let i = 0; i<arr.length; i++){
+//     let sum = 0;
+//     for(let j = 0; j<=i; j++){
+//       sum += arr[j]
+//     }
+//     result.push(sum)
+//   }
+//   return result
+// }
+
+// console.log(runningSumBrute([1, 2, 3, 4]))
+
+// const majorityElementBrute = (arr: number[]) => {
+//   let n = arr.length;
+//   for (let i = 0; i < n; i++) {
+//     let count = 0;
+//     for (let j = 0; j < n; j++) {
+//       if (arr[i] === arr[j]) count++;
+//     }
+//     if (count > n / 2) return arr[i];
+//   }
+//   return -1;
+// };
+
+// console.log(majorityElementBrute([1, 2, 2, 3, 4, 5, 2, 2, 2]));
+
+
+// const majorityElementBetter = (arr: number[]) =>{
+//   const map = new Map<number, number>()
+//   let n = arr.length;
+//   for(let i = 0; i<arr.length; i++){
+//     if(map.has(arr[i])){
+//       map.set(arr[i], map.get(arr[i])! + 1)
+//     }
+//     else{
+//       map.set(arr[i], 1)
+//     }
+//     if(map.get(arr[i])! > n/2) return arr[i]
+//   }
+//   return -1
+// }
+
+// console.log(majorityElementBetter([1, 2, 2, 3, 4, 5, 2, 2, 2]))
+
+const majorityElementOpt = (arr: number[]): number => {
+  let count = 0;
+  let candidate = 0;
+  let n = arr.length;
+
+  for(let num of arr){
+    if(count === 0) candidate = num;
+    count += num === candidate ? 1 : -1;
   }
-  return result;
+
+  let freq = 0;
+  for(let num of arr){
+    if(num === candidate) freq++;
+  }
+  return freq > n/2 ? candidate : -1
 }
-console.log(intersectionOfTwoArraysOpt([1,2,3,4,5], [3,4,5,6,7]))
+
+console.log(majorityElementOpt([1, 2, 2, 3, 4, 5, 2, 2, 2]))
