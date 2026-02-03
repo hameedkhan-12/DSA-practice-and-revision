@@ -100,22 +100,117 @@
 
 // console.log(productMaxSubArr([1,2,-3,4,5,1,3]))
 
-const maxProductOptimal = (nums: number[]) => {
-  let maxProduct = nums[0];
-  let minProduct = nums[0];
-  let result = nums[0];
+// const maxProductOptimal = (nums: number[]) => {
+//   let maxProduct = nums[0];
+//   let minProduct = nums[0];
+//   let result = nums[0];
 
-  for(let i = 1; i<nums.length; i++){
-    const current = nums[i];
+//   for(let i = 1; i<nums.length; i++){
+//     const current = nums[i];
 
-    const tempMax = maxProduct;
-    maxProduct = Math.max(current, current * maxProduct, current * minProduct);
-    minProduct = Math.min(current, current * tempMax, current * minProduct);
-    result = Math.max(result, maxProduct);
+//     const tempMax = maxProduct;
+//     maxProduct = Math.max(current, current * maxProduct, current * minProduct);
+//     minProduct = Math.min(current, current * tempMax, current * minProduct);
+//     result = Math.max(result, maxProduct);
+//   }
+
+//   return result;
+// }
+
+// console.log(maxProductOptimal([2,3,-2,4]))
+// console.log(maxProductOptimal([2,3,-2,4,2]))
+
+// const threeSum = (nums: number[]) => {
+//   let n = nums.length;
+//   const result: number[][] = [];
+//   for(let i = 0; i< n -2; i++){
+
+//     for(let j = i+1; j<n-1; j++){
+
+//       for(let k = i+2; k<n; k++){
+//         if(nums[i] + nums[j] + nums[k] === 0){
+//           const triplet = [nums[i], nums[j], nums[k]].sort((a,b) => a-b);
+//           console.log(triplet)
+//           const exists = result.some(arr => arr[0] === triplet[0] && arr[1] === triplet[1] && arr[2] === triplet[2])
+//           console.log(exists)
+//           if(!exists){
+//             result.push(triplet)
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   return result
+// }
+
+// console.log(threeSum([-1,0,1,2,-1,-4]))
+
+// const threeSumBetter = (nums: number[]) => {
+//   let result: number[][] = []
+//   let n = nums.length;
+
+//   for(let i = 0; i<n-2; i++){
+//     const seen = new Set<number>();
+//     for (let j = i+1; j<n-1; j++){
+//       const required = -(nums[i] + nums[j]);
+//       if(seen.has(required)){
+//         const triplet = [nums[i], nums[j], required].sort((a,b) => a-b);
+//         const key = triplet.join(',');
+
+//         const exists = result.some(arr => arr.join(',') === key)
+//         if(!exists){
+//           result.push(triplet)
+//         }
+//       }
+//       seen.add(nums[j])
+//     }
+//   }
+
+//   return result
+// }
+
+// console.log(threeSumBetter([-1,0,1,2,-1,-4]))
+
+function threeSum(nums: number[]): number[][] {
+  const result: number[][] = [];  
+  nums.sort((a, b) => a - b);
+  const n = nums.length;
+    for (let i = 0; i < n - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    
+    let left = i + 1;     
+    let right = n - 1;   
+    
+    while (left < right) {
+      const sum = nums[i] + nums[left] + nums[right];
+      
+      if (sum === 0) {
+        result.push([nums[i], nums[left], nums[right]]);
+        
+        while (left < right && nums[left] === nums[left + 1]) {
+          left++;
+        }
+        
+        while (left < right && nums[right] === nums[right - 1]) {
+          right--;
+        }
+        
+        left++;
+        right--;
+        
+      } else if (sum < 0) {
+        left++;
+        
+      } else {
+        right--;
+      }
+    }
   }
-
+  
   return result;
 }
 
-console.log(maxProductOptimal([2,3,-2,4]))
-console.log(maxProductOptimal([2,3,-2,4,2]))
+console.log(threeSum([-1,0,1,2,-1,-4]))
