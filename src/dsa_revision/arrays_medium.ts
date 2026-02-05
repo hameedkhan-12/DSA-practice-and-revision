@@ -172,45 +172,82 @@
 
 // console.log(threeSumBetter([-1,0,1,2,-1,-4]))
 
-function threeSum(nums: number[]): number[][] {
-  const result: number[][] = [];  
-  nums.sort((a, b) => a - b);
-  const n = nums.length;
-    for (let i = 0; i < n - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) {
-      continue;
-    }
-    
-    let left = i + 1;     
-    let right = n - 1;   
-    
-    while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right];
-      
-      if (sum === 0) {
-        result.push([nums[i], nums[left], nums[right]]);
-        
-        while (left < right && nums[left] === nums[left + 1]) {
-          left++;
-        }
-        
-        while (left < right && nums[right] === nums[right - 1]) {
-          right--;
-        }
-        
-        left++;
-        right--;
-        
-      } else if (sum < 0) {
-        left++;
-        
-      } else {
-        right--;
-      }
+// const threeSum = (nums: number[]) => {
+//   let result: number[][] = [];
+//   nums.sort((a, b) => a - b);
+//   let n = nums.length;
+
+//   for (let i = 0; i < n - 2; i++) {
+//     if(i>0 && nums[i] === nums[i -1]) continue
+//     let j = i + 1;
+//     let k = n - 1;
+//     while (j < k) {
+//       const sum = nums[i] + nums[j] + nums[k];
+//       if(sum === 0){
+//         result.push([nums[i], nums[j], nums[k]]);
+
+//         while(j<k && nums[j] === nums[j+1]) j++;
+//         while(j<k && nums[k] === nums[k-1]) k--;
+//         j++;
+//         k--;
+//       }else if(sum < 0){
+//         j++;
+//       }else{
+//         k--;
+//       }
+//     }
+//   }
+//   return result;
+// };
+// console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
+// const binarySearch = (nums: number[], target: number) => {
+//   let n = nums.length;
+//   let left = 0;
+//   let right = n - 1;
+
+//   while (left <= right) {
+//     const mid = Math.floor((left + right) / 2);
+//     if (nums[mid] === target) {
+//       return mid;
+//     } else if (nums[mid] < target) {
+//       left = mid + 1;
+//     } else {
+//       right = mid - 1;
+//     }
+//   }
+//   return false
+// };
+
+// console.log(binarySearch([1,2,3,4,5],1))
+
+// const rotateArr = (nums: number[], k: number) => {
+//   let rotated: number[] = []
+//   const n = nums.length;
+//   k = k%n;
+
+//   for(let i = 0; i<n; i++){
+//     rotated[(i+k) % n] = nums[i]
+//   }
+//   return rotated;
+// }
+
+// console.log(rotateArr([1,2,3,4,5],3))
+
+const findMinSortedArr = (nums: number[]) => {
+  let left = 0;
+  let right = nums.length - 1;
+  if (nums[left] < nums[right]) return nums[left];
+
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] > right) {
+      left = mid + 1;
+    } else {
+      right = mid;
     }
   }
-  
-  return result;
-}
+  return nums[left];
+};
 
-console.log(threeSum([-1,0,1,2,-1,-4]))
+console.log(findMinSortedArr([3, 4, 5, 1, 2]));
