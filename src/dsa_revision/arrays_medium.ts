@@ -440,7 +440,7 @@ const longestConsecutiveOptimal = (nums: number[]) => {
   const set = new Set<number>(nums);
   let longestStreak = 0;
 
-  for (let num of nums) {
+  for (let num of set) {
     if (!set.has(num - 1)) {
       let curStreak = 1;
       let curNum = num;
