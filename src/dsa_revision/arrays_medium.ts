@@ -234,20 +234,227 @@
 
 // console.log(rotateArr([1,2,3,4,5],3))
 
-const findMinSortedArr = (nums: number[]) => {
-  let left = 0;
-  let right = nums.length - 1;
-  if (nums[left] < nums[right]) return nums[left];
+// const findMinSortedArr = (nums: number[]) => {
+//   let left = 0;
+//   let right = nums.length - 1;
+//   if (nums[left] < nums[right]) return nums[left];
 
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] > right) {
-      left = mid + 1;
-    } else {
-      right = mid;
-    }
+//   while (left < right) {
+//     const mid = Math.floor((left + right) / 2);
+//     if (nums[mid] > right) {
+//       left = mid + 1;
+//     } else {
+//       right = mid;
+//     }
+//   }
+//   return nums[left];
+// };
+
+// console.log(findMinSortedArr([3, 4, 5, 1, 2]));
+
+const matrix = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [9, 8, 7],
+];
+
+const markRow = (matrix: number[][], row: number, marker: number) => {
+  let cols = matrix[0].length;
+  console.log(cols);
+
+  for (let i = 0; i < cols; i++) {
+    matrix[row][i] = marker;
   }
-  return nums[left];
+  return matrix;
 };
 
-console.log(findMinSortedArr([3, 4, 5, 1, 2]));
+// console.log(markRow(matrix,2,1))
+
+// const markCol = (matrix: number[][], col: number, marker: number) => {
+//   let rows = matrix.length;
+//   console.log(rows);
+
+//   for (let i = 0; i < rows; i++) {
+//     matrix[i][col] = marker;
+//   }
+//   return matrix;
+// };
+// console.log(markCol(matrix,2,0))
+
+// const markRowAndCol = (
+//   matrix: number[][],
+//   row: number,
+//   col: number,
+//   marker: number,
+// ) => {
+//   markRow(matrix, row, marker);
+//   markCol(matrix, col, marker);
+//   return matrix;
+// };
+// console.log(markRowAndCol(matrix, 1, 1, 0));
+
+// console.log(matrix);
+
+// const setMatrixZeroes = (matrix: number[][]) => {
+//   const rows = matrix.length;
+//   const cols = matrix[0].length;
+
+//   const copy: number[][] = [];
+
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col <= cols; col++) {
+//       if (matrix[row][col] === 0) {
+//         // copy.push(matrix[row][col]===0)
+//       }
+//     }
+//   }
+// };
+
+// const setMatrixZeroesBrute = (matrix: number[][]) => {
+//   const rows = matrix.length;
+//   const cols = matrix[0].length;
+//   let copy: number[][] = [];
+//   for (let i = 0; i < rows; i++) {
+//     copy[i] = [...matrix[i]];
+//   }
+//   console.log(copy);
+
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col < cols; col++) {
+//       if (matrix[row][col] === 0) {
+//         for (let k = 0; k < cols; k++) {
+//           copy[row][k] = 0;
+//         }
+//         for (let k = 0; k < rows; k++) {
+//           copy[k][col] = 0;
+//         }
+//       }
+//     }
+//   }
+
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col < cols; col++) {
+//       matrix[row][col] = copy[row][col];
+//     }
+//   }
+//   return matrix;
+// };
+// console.log(
+//   setMatrixZeroesBrute([
+//     [1, 1, 1],
+//     [1, 0, 1],
+//     [1, 1, 1],
+//   ]),
+// );
+
+// const setMatrixZeroesBetter = (matrix: number[][]) => {
+//   const rows = matrix.length;
+//   const cols = matrix[0].length;
+
+//   const rowZeroes: boolean[] = new Array(rows).fill(false);
+//   const colZeroes: boolean[] = new Array(cols).fill(false);
+
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col < cols; col++) {
+//       if (matrix[row][col] === 0) {
+//         rowZeroes[row] = true;
+//         colZeroes[col] = true;
+//       }
+//     }
+//   }
+//   for (let row = 0; row < rows; row++) {
+//     if (rowZeroes[row]) {
+//       for (let col = 0; col < cols; col++) {
+//         matrix[row][col] = 0;
+//       }
+//     }
+//   }
+//   for (let col = 0; col < cols; col++) {
+//     if (colZeroes[col]) {
+//       for (let row = 0; row < rows; row++) {
+//         matrix[row][col] = 0;
+//       }
+//     }
+//   }
+//   console.log(rowZeroes, colZeroes);
+
+//   return matrix;
+// };
+
+// console.log(
+//   setMatrixZeroesBetter([
+//     [1, 1, 1],
+//     [1, 0, 1],
+//     [1, 1, 1],
+//   ]),
+// );
+
+// const longestConsecutiveBrute = (nums: number[]) => {
+//   if (nums.length === 0) return 0;
+
+//   nums.sort((a, b) => a - b);
+//   let currentStreak = 1;
+//   let longestStreak = 1;
+
+//   for (let i = 1; i < nums.length; i++) {
+//     if (nums[i] === nums[i - 1]) continue;
+
+//     if (nums[i] === nums[i - 1] + 1) {
+//       currentStreak++;
+//     } else {
+//       longestStreak = Math.max(longestStreak, currentStreak);
+//       currentStreak = 1;
+//     }
+//   }
+//   longestStreak = Math.max(longestStreak, currentStreak);
+//   return longestStreak;
+// };
+
+// console.log(longestConsecutiveBrute([100,4,200,1,2,3]))
+
+const longestConsecutiveBetter = (nums: number[]) => {
+  if (nums.length === 0) return 0;
+
+  const set = new Set<number>(nums);
+  let longestStreak = 0;
+
+  for (const num of nums) {
+    let current = num;
+    let currentStreak = 1;
+
+    while (set.has(current + 1)) {
+      current++;
+      currentStreak++;
+    }
+    longestStreak = Math.max(longestStreak, currentStreak);
+  }
+
+  return longestStreak;
+};
+
+console.log(longestConsecutiveBetter([100, 4, 200, 1, 2, 3]));
+
+const longestConsecutiveOptimal = (nums: number[]) => {
+  if (nums.length === 0) return 0;
+
+  const set = new Set<number>(nums);
+  let longestStreak = 0;
+
+  for (let num of nums) {
+    if (!set.has(num - 1)) {
+      let curStreak = 1;
+      let curNum = num;
+
+      while (set.has(curNum + 1)) {
+        curStreak++;
+        curNum++;
+      }
+
+      longestStreak = Math.max(longestStreak, curStreak);
+    }
+  }
+
+  return longestStreak;
+};
+
+console.log(longestConsecutiveOptimal([100, 4, 200, 1, 2, 3]));
