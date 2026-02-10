@@ -432,29 +432,91 @@ const longestConsecutiveBetter = (nums: number[]) => {
   return longestStreak;
 };
 
-console.log(longestConsecutiveBetter([100, 4, 200, 1, 2, 3]));
+// console.log(longestConsecutiveBetter([100, 4, 200, 1, 2, 3]));
 
-const longestConsecutiveOptimal = (nums: number[]) => {
-  if (nums.length === 0) return 0;
+// const longestConsecutiveOptimal = (nums: number[]) => {
+//   if (nums.length === 0) return 0;
 
-  const set = new Set<number>(nums);
-  let longestStreak = 0;
+//   const set = new Set<number>(nums);
+//   let longestStreak = 0;
 
-  for (let num of set) {
-    if (!set.has(num - 1)) {
-      let curStreak = 1;
-      let curNum = num;
+//   for (let num of set) {
+//     if (!set.has(num - 1)) {
+//       let curStreak = 1;
+//       let curNum = num;
 
-      while (set.has(curNum + 1)) {
-        curStreak++;
-        curNum++;
-      }
+//       while (set.has(curNum + 1)) {
+//         curStreak++;
+//         curNum++;
+//       }
 
-      longestStreak = Math.max(longestStreak, curStreak);
-    }
-  }
+//       longestStreak = Math.max(longestStreak, curStreak);
+//     }
+//   }
 
-  return longestStreak;
+//   return longestStreak;
+// };
+
+// console.log(longestConsecutiveOptimal([100, 4, 200, 1, 2, 3]));
+
+// const mergeIntervals = (interval1: number[], interval2: number[]) => {
+//   const [start1, end1] = interval1;
+//   const [start2, end2] = interval2;
+
+//   if (start2 <= end1 && start1 <= end2) return true;
+//   return false;
+// };
+
+// console.log(mergeIntervals([1, 3], [4, 6]));
+
+function mergeTwoIntervals(interval1: number[], interval2: number[]) {
+  const [start1, end1] = interval1;
+  const [start2, end2] = interval2;
+
+  return [Math.min(start1, start2), Math.max(end1, end2)];
+}
+
+// console.log(mergeTwoIntervals([1,3],[4,9]))
+
+const mergeTwoOverlappingIntervals = (intervals: number[][]) => {
+  intervals.sort((a, b) => a[0] - b[0]);
+  console.log(intervals);
+  intervals.forEach((interval) => {
+    const [start1, end1] = interval;
+    console.log(start1, end1);
+  });
 };
 
-console.log(longestConsecutiveOptimal([100, 4, 200, 1, 2, 3]));
+// console.log(mergeTwoOverlappingIntervals([[1,3],[8,10],[2,6]]))
+
+const mergeIntervals = (intervals: number[][]) => {
+  if (intervals.length === 0) return [];
+
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  const mergedIntervals: number[][] = [];
+  mergedIntervals.push(intervals[0]);
+
+  for (let i = 1; i < intervals.length; i++) {
+    const [start, end] = intervals[i];
+    console.log(start, end);
+
+    const last = mergedIntervals[mergedIntervals.length - 1];
+    console.log(last[1]);
+    if (start <= last[1]) {
+      last[1] = Math.max(end, last[1]);
+    } else {
+      mergedIntervals.push(intervals[i]);
+    }
+  }
+  return mergedIntervals;
+};
+
+console.log(
+  mergeIntervals([
+    [1, 3],
+    [2, 6],
+    [8, 10],
+    [11, 15],
+  ]),
+);
