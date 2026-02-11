@@ -489,34 +489,52 @@ const mergeTwoOverlappingIntervals = (intervals: number[][]) => {
 
 // console.log(mergeTwoOverlappingIntervals([[1,3],[8,10],[2,6]]))
 
-const mergeIntervals = (intervals: number[][]) => {
-  if (intervals.length === 0) return [];
+// const mergeIntervals = (intervals: number[][]) => {
+//   if (intervals.length === 0) return [];
 
-  intervals.sort((a, b) => a[0] - b[0]);
+//   intervals.sort((a, b) => a[0] - b[0]);
 
-  const mergedIntervals: number[][] = [];
-  mergedIntervals.push(intervals[0]);
+//   const mergedIntervals: number[][] = [];
+//   mergedIntervals.push(intervals[0]);
 
-  for (let i = 1; i < intervals.length; i++) {
-    const [start, end] = intervals[i];
-    console.log(start, end);
+//   for (let i = 1; i < intervals.length; i++) {
+//     const [start, end] = intervals[i];
+//     console.log(start, end);
 
-    const last = mergedIntervals[mergedIntervals.length - 1];
-    console.log(last[1]);
-    if (start <= last[1]) {
-      last[1] = Math.max(end, last[1]);
-    } else {
-      mergedIntervals.push(intervals[i]);
+//     const last = mergedIntervals[mergedIntervals.length - 1];
+//     console.log(last[1]);
+//     if (start <= last[1]) {
+//       last[1] = Math.max(end, last[1]);
+//     } else {
+//       mergedIntervals.push(intervals[i]);
+//     }
+//   }
+//   return mergedIntervals;
+// };
+
+// console.log(
+//   mergeIntervals([
+//     [1, 3],
+//     [2, 6],
+//     [8, 10],
+//     [11, 15],
+//   ]),
+// );
+
+const rotateImage = (matrix: number[][]) => {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+
+  for(let i = 0; i<rows; i++){
+    for(let j = i; j<cols; j++){
+      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
     }
   }
-  return mergedIntervals;
-};
 
-console.log(
-  mergeIntervals([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [11, 15],
-  ]),
-);
+  for(let i = 0; i<rows; i++){
+    matrix[i].reverse()
+  }
+  return matrix;
+}
+
+console.log(rotateImage([[1,2,3],[4,5,6],[7,8,9]]))
