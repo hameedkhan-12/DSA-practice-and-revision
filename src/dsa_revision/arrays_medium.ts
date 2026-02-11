@@ -478,14 +478,14 @@ function mergeTwoIntervals(interval1: number[], interval2: number[]) {
 
 // console.log(mergeTwoIntervals([1,3],[4,9]))
 
-const mergeTwoOverlappingIntervals = (intervals: number[][]) => {
-  intervals.sort((a, b) => a[0] - b[0]);
-  console.log(intervals);
-  intervals.forEach((interval) => {
-    const [start1, end1] = interval;
-    console.log(start1, end1);
-  });
-};
+// const mergeTwoOverlappingIntervals = (intervals: number[][]) => {
+//   intervals.sort((a, b) => a[0] - b[0]);
+//   console.log(intervals);
+//   intervals.forEach((interval) => {
+//     const [start1, end1] = interval;
+//     console.log(start1, end1);
+//   });
+// };
 
 // console.log(mergeTwoOverlappingIntervals([[1,3],[8,10],[2,6]]))
 
@@ -521,20 +521,72 @@ const mergeTwoOverlappingIntervals = (intervals: number[][]) => {
 //   ]),
 // );
 
-const rotateImage = (matrix: number[][]) => {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
+// const rotateImage = (matrix: number[][]) => {
+//   const rows = matrix.length;
+//   const cols = matrix[0].length;
 
-  for(let i = 0; i<rows; i++){
-    for(let j = i; j<cols; j++){
-      [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+//   for(let i = 0; i<rows; i++){
+//     for(let j = i; j<cols; j++){
+//       [matrix[i][j], matrix[j][i]] = [matrix[j][i], matrix[i][j]]
+//     }
+//   }
+
+//   for(let i = 0; i<rows; i++){
+//     matrix[i].reverse()
+//   }
+//   return matrix;
+// }
+
+// console.log(rotateImage([[1,2,3],[4,5,6],[7,8,9]]))
+
+const mergeInterval = (intervals: number[][]) => {
+  if (intervals.length === 0) return [];
+
+  intervals.sort((a, b) => a[0] - b[0]);
+  const mergedIntervals: number[][] = [];
+
+  mergedIntervals.push(intervals[0]);
+
+  for (let i = 1; i < intervals.length; i++) {
+    const [start2, end] = intervals[i];
+
+    const last = mergedIntervals[mergedIntervals.length - 1];
+
+    if (start2 < last[1]) {
+      last[1] = Math.max(last[1], end);
+    } else {
+      mergedIntervals.push(intervals[i]);
     }
   }
+  return mergedIntervals;
+};
 
-  for(let i = 0; i<rows; i++){
-    matrix[i].reverse()
+console.log(
+  mergeInterval([
+    [1, 3],
+    [2, 6],
+    [8, 10],
+    [13, 15],
+  ]),
+);
+
+const checkValidCuts = (n: number, rectangle: number[][]) => {
+  const xCoordinates: number[][] = [];
+  const yCoordinates: number[][] = [];
+
+  for (let i = 0; i < rectangle.length; i++) {
+    const [x1, y1, x2, y2] = rectangle[i];
+    xCoordinates.push([x1, x2]);
+    yCoordinates.push([y1, y2]);
   }
-  return matrix;
-}
+  const mergedX = mergeInterval(xCoordinates);
+  const mergedY = mergeInterval(yCoordinates);
 
-console.log(rotateImage([[1,2,3],[4,5,6],[7,8,9]]))
+  return mergedX.length >=3 || mergedY.length >=3;
+};
+console.log(
+  checkValidCuts(2, [
+    [1, 2, 3, 4],
+    [2, 3, 5, 7],
+  ]),
+);
