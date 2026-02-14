@@ -539,54 +539,98 @@ function mergeTwoIntervals(interval1: number[], interval2: number[]) {
 
 // console.log(rotateImage([[1,2,3],[4,5,6],[7,8,9]]))
 
-const mergeInterval = (intervals: number[][]) => {
-  if (intervals.length === 0) return [];
+// const mergeInterval = (intervals: number[][]) => {
+//   if (intervals.length === 0) return [];
 
-  intervals.sort((a, b) => a[0] - b[0]);
-  const mergedIntervals: number[][] = [];
+//   intervals.sort((a, b) => a[0] - b[0]);
+//   const mergedIntervals: number[][] = [];
 
-  mergedIntervals.push(intervals[0]);
+//   mergedIntervals.push(intervals[0]);
 
-  for (let i = 1; i < intervals.length; i++) {
-    const [start2, end] = intervals[i];
+//   for (let i = 1; i < intervals.length; i++) {
+//     const [start2, end] = intervals[i];
 
-    const last = mergedIntervals[mergedIntervals.length - 1];
+//     const last = mergedIntervals[mergedIntervals.length - 1];
 
-    if (start2 < last[1]) {
-      last[1] = Math.max(last[1], end);
-    } else {
-      mergedIntervals.push(intervals[i]);
+//     if (start2 < last[1]) {
+//       last[1] = Math.max(last[1], end);
+//     } else {
+//       mergedIntervals.push(intervals[i]);
+//     }
+//   }
+//   return mergedIntervals;
+// };
+
+// console.log(
+//   mergeInterval([
+//     [1, 3],
+//     [2, 6],
+//     [8, 10],
+//     [13, 15],
+//   ]),
+// );
+
+// const checkValidCuts = (n: number, rectangle: number[][]) => {
+//   const xCoordinates: number[][] = [];
+//   const yCoordinates: number[][] = [];
+
+//   for (let i = 0; i < rectangle.length; i++) {
+//     const [x1, y1, x2, y2] = rectangle[i];
+//     xCoordinates.push([x1, x2]);
+//     yCoordinates.push([y1, y2]);
+//   }
+//   const mergedX = mergeInterval(xCoordinates);
+//   const mergedY = mergeInterval(yCoordinates);
+
+//   return mergedX.length >=3 || mergedY.length >=3;
+// };
+// console.log(
+//   checkValidCuts(2, [
+//     [1, 2, 3, 4],
+//     [2, 3, 5, 7],
+//   ]),
+// );
+
+const trappingRainWater = (heights: number[]) => {
+  let water = 0;
+  for (let i = 0; i < heights.length; i++) {
+    let leftMax = 0;
+    let rightMax = 0;
+    for (let j = 0; j <= i; j++) {
+      leftMax = Math.max(leftMax, heights[j]);
     }
+    for (let k = i; k < heights.length; k++) {
+      rightMax = Math.max(rightMax, heights[k]);
+    }
+
+    water += Math.min(leftMax, rightMax) - heights[i];
   }
-  return mergedIntervals;
+  return water;
 };
 
-console.log(
-  mergeInterval([
-    [1, 3],
-    [2, 6],
-    [8, 10],
-    [13, 15],
-  ]),
-);
+console.log(trappingRainWater([4, 2, 0, 3, 2, 5]));
 
-const checkValidCuts = (n: number, rectangle: number[][]) => {
-  const xCoordinates: number[][] = [];
-  const yCoordinates: number[][] = [];
+const trappingRainWaterBetter = (height: number[]) => {
+  const n = height.length;
+  if (n === 0) return 0;
 
-  for (let i = 0; i < rectangle.length; i++) {
-    const [x1, y1, x2, y2] = rectangle[i];
-    xCoordinates.push([x1, x2]);
-    yCoordinates.push([y1, y2]);
+  let leftMax = new Array(n);
+  let rightMax = new Array(n);
+  leftMax[0] = height[0];
+
+  for (let i = 1; i < n; i++) {
+    leftMax[i] = Math.max(leftMax[i - 1], height[i]);
   }
-  const mergedX = mergeInterval(xCoordinates);
-  const mergedY = mergeInterval(yCoordinates);
+  rightMax[n - 1] = height[n - 1];
+  for (let i = n - 2; i >= 0; i--) {
+    rightMax[i] = Math.max(rightMax[i + 1], height[i]);
+  }
 
-  return mergedX.length >=3 || mergedY.length >=3;
+  let total = 0;
+  for(let i = 0; i<n; i++){
+    total += Math.min(leftMax[i],rightMax[i]) - height[i]
+  }
+  return total;
 };
-console.log(
-  checkValidCuts(2, [
-    [1, 2, 3, 4],
-    [2, 3, 5, 7],
-  ]),
-);
+
+console.log(trappingRainWaterBetter([4,2,0,3,2,5]))
