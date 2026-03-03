@@ -45,17 +45,53 @@
 
 // insertAtBottom([2, 3, 1, 5, 6], 4);
 
-const insertAtBottomRecursive = (stack: number[], num: number) => {
-    if(stack.length === 0){ 
-        stack.push(num)
-    return;
-    };
+// const insertAtBottomRecursive = (stack: number[], num: number) => {
+//     if(stack.length === 0){
+//         stack.push(num)
+//     return;
+//     };
 
-    let top = stack.pop();
-    insertAtBottomRecursive(stack, num)
+//     let top = stack.pop();
+//     insertAtBottomRecursive(stack, num)
 
-    stack.push(top!)
-    console.log(stack)
+//     stack.push(top!)
+//     console.log(stack)
+// }
+
+// insertAtBottomRecursive(([4,2,1,3,6]), 9)
+
+// const stringManipulation = (str: string[]) => {
+//   const stack: string[] = [];
+//   for (const char of str) {
+//     if (stack[stack.length - 1] !== char) {
+//       stack.push(char);
+//     }
+//    else stack.pop();
+//   }
+//   console.log(stack);
+// };
+
+// console.log(stringManipulation(["ab", "bc", "bc", "ab", "da"]));
+
+const validParenthesis = (str: string[]) => {
+    const stack: string[] = []
+
+    const map: Record<string,string> = {
+        ')' : '(',
+        '}' : '{',
+        ']' : '['
+    }
+
+    for(const key of str){
+        if(key in map){
+            if(!stack.length || stack[stack.length-1] !== map[key]){
+                return false;
+            }
+            stack.pop()
+        }
+        else stack.push(key)
+    }
+    return stack.length === 0
 }
 
-insertAtBottomRecursive(([4,2,1,3,6]), 9)
+console.log(validParenthesis(['(','{','}',')']))
