@@ -179,21 +179,87 @@ const nextGreaterElement2 = (nums: number[]) => {
 
 // console.log(nextGreaterElement2([4,5,2,10,6,9]))
 
-const nextSmallerElement = (nums: number[]) => {
-  const n = nums.length;
-  const stack: number[] = []
-  const ans: number[] = new Array(n).fill(-1)
+// const nextSmallerElement = (nums: number[]) => {
+//   const n = nums.length;
+//   const stack: number[] = []
+//   const ans: number[] = new Array(n).fill(-1)
 
-  for(let i = n-1; i>=0; i--){
-    while(stack.length>0 && nums[i]<= stack[stack.length-1]){
-      stack.pop()
+//   for(let i = n-1; i>=0; i--){
+//     while(stack.length>0 && nums[i]<= stack[stack.length-1]){
+//       stack.pop()
+//     }
+//     if(stack.length>0){
+//       ans[i] = stack[stack.length-1]
+//     }
+//     stack.push(nums[i])
+//   }
+//   return ans;
+// }
+
+// console.log(nextSmallerElement([5,3,7,1,6,3]))
+
+// const nextSmallerElementLeft = (nums: number[]) => {
+//   const n = nums.length;
+//   const stack: number[] = [];
+//   const ans: number[] = new Array(n).fill(-1);
+
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && nums[i] <= stack[stack.length - 1]) {
+//       stack.pop();
+//     }
+
+//     if (stack.length > 0) {
+//       ans[i] = stack[stack.length - 1];
+//     }
+
+//     stack.push(nums[i]);
+//   }
+
+//   return ans;
+// };
+// console.log(nextSmallerElementLeft([5,3,7,1,6,3]))
+
+const dailyTemperaturesBrute = (temperatures: number[]) => {
+  const n = temperatures.length;
+  const stack: number[] = [];
+  for (let i = 0; i < n; i++) {
+    let days: number;
+    for (let j = i + 1; j < n; j++) {
+      if (temperatures[i] < temperatures[j]) {
+        days = j - i;
+        stack.push(days);
+        break;
+      } else {
+        stack.push;
+      }
     }
-    if(stack.length>0){
-      ans[i] = stack[stack.length-1]
-    }
-    stack.push(nums[i])
   }
+  return stack;
+};
+
+// console.log(dailyTemperaturesBrute([73, 74, 75, 71, 69, 72, 76, 73]));
+function dailyTemperatures(temperatures: number[]): number[] {
+  const n = temperatures.length;
+  const ans: number[] = new Array(n).fill(0);
+  const stack: number[] = [];
+
+  for (let i = n - 1; i >= 0; i--) {
+
+    while (
+      stack.length > 0 &&
+      temperatures[stack[stack.length - 1]] <= temperatures[i]
+    ) {
+      stack.pop();
+    }
+
+    if (stack.length > 0) {
+      ans[i] = stack[stack.length - 1] - i;
+    }
+
+    stack.push(i);
+  }
+
   return ans;
 }
 
-console.log(nextSmallerElement([5,3,7,1,6,3]))
+console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
