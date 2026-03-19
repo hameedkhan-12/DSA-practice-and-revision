@@ -244,7 +244,6 @@ function dailyTemperatures(temperatures: number[]): number[] {
   const stack: number[] = [];
 
   for (let i = n - 1; i >= 0; i--) {
-
     while (
       stack.length > 0 &&
       temperatures[stack[stack.length - 1]] <= temperatures[i]
@@ -262,4 +261,223 @@ function dailyTemperatures(temperatures: number[]): number[] {
   return ans;
 }
 
-console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
+// console.log(dailyTemperatures([73, 74, 75, 71, 69, 72, 76, 73]))
+
+// const nextSmallerLeft = (arr: number[]) => {
+//   const stack: number[] = []
+//   const ans: number[] = new Array(arr.length).fill(-1)
+
+//   for(let i = 0; i<arr.length; i++){
+//     while(stack.length>0 && stack[stack.length-1]>=arr[i]){
+//       stack.pop()
+//     }
+//     if(stack.length>0){
+//       ans[i] = stack[stack.length-1];
+//     }
+//     stack.push(i)
+//   }
+//   return ans;
+// }
+
+// console.log(nextSmallerLeft([5,3,7,1,6,3]))
+// const nextSmallerRight = (arr: number[]) => {
+//   const stack: number[] = []
+//   const ans: number[] = []
+
+//   for(let i = )
+// }
+
+// const nextSmallerLeftIndex = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+
+//   const left = new Array(n);
+
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
+//       stack.pop();
+//     }
+
+//     left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+
+//     stack.push(i);
+//   }
+//   return left;
+// };
+
+// const nextSmallerRightIndex = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const right = new Array(n);
+
+//   for (let i = n - 1; i >= 0; i--) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
+//       stack.pop();
+//     }
+
+//     right[i] = stack.length === 0 ? n : stack[stack.length - 1];
+
+//     stack.push(i);
+//   }
+
+//   return right;
+// };
+
+// const sumSubArrayMin = (arr: number[]): number => {
+//   const leftValues = nextSmallerLeftIndex(arr);
+//   const rightValues = nextSmallerRightIndex(arr);
+
+//   let sum = 0;
+
+//   const MOD = 1_000_000_007;
+
+//   for (let i = 0; i < arr.length; i++) {
+//     const left = i - leftValues[i];
+//     const right = rightValues[i] - i;
+
+//     const contribution = (arr[i] * left * right) % MOD;
+//     sum = (sum + contribution) % MOD;
+//   }
+
+//   return sum;
+// };
+
+// console.log(sumSubArrayMin([3, 1, 2, 4]));
+
+const nextSmallerLeftIndexRange = (arr: number[]) => {
+  const n = arr.length;
+  const stack: number[] = [];
+  const left = new Array(n);
+
+  for (let i = 0; i < n; i++) {
+    while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
+      stack.pop();
+    }
+    left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+    stack.push(i);
+  }
+
+  return left;
+};
+const nextSmallerRightIndexRange = (arr: number[]) => {
+  const n = arr.length;
+  const stack: number[] = [];
+  const right = new Array(n);
+
+  for (let i = n - 1; i >= 0; i--) {
+    while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
+      stack.pop();
+    }
+
+    right[i] = stack.length === 0 ? n : stack[stack.length - 1];
+    stack.push(i);
+  }
+
+  return right;
+};
+const nextGreaterLeftIndexRange = (arr: number[]) => {
+  const n = arr.length;
+  const stack: number[] = [];
+  const left = new Array(n);
+
+  for (let i = 0; i < n; i++) {
+    while (stack.length > 0 && arr[stack[stack.length - 1]] < arr[i]) {
+      stack.pop();
+    }
+    left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+    stack.push(i);
+  }
+
+  return left;
+};
+
+const nextGreaterRightIndexRange = (arr: number[]) => {
+  const n = arr.length;
+  const stack: number[] = [];
+  const right = new Array(n);
+
+  for (let i = n - 1; i >= 0; i--) {
+    while (stack.length > 0 && arr[stack[stack.length - 1]] <= arr[i]) {
+      stack.pop();
+    }
+
+    right[i] = stack.length === 0 ? n : stack[stack.length - 1];
+    stack.push(i);
+  }
+  return right;
+};
+
+const sumOfSubarrayMinimum = (arr: number[]) => {
+  const nextSmallerLeftValues = nextSmallerLeftIndexRange(arr);
+  const nextSmallerRightValues = nextSmallerRightIndexRange(arr);
+
+  let sum = 0;
+  const MOD = 1_000_000_007;
+
+  for (let i = 0; i < arr.length; i++) {
+    const left = i - nextSmallerLeftValues[i];
+    const right = nextSmallerRightValues[i] - i;
+
+    const contribution = (arr[i] * left * right) % MOD;
+    sum = (sum + contribution) % MOD;
+  }
+
+  return sum;
+};
+
+const sumOfSubarrayMaximum = (arr: number[]) => {
+  const nextGreaterLeftValues = nextGreaterLeftIndexRange(arr);
+  const nextGreaterRightValues = nextGreaterRightIndexRange(arr);
+
+  let sum = 0;
+  const MOD = 1_000_000_007;
+
+  for (let i = 0; i < arr.length; i++) {
+    const left = i - nextGreaterLeftValues[i];
+    const right = nextGreaterRightValues[i] - i;
+
+    const contribution = (arr[i] * left * right) % MOD;
+    sum = (sum + contribution) % MOD;
+  }
+  return sum;
+};
+// const sumOfSubarrayRanges = (arr: number[]) => {
+//   const MOD = 1_000_000_007;
+
+//   const smallerValues = sumOfSubarrayMinimum(arr);
+//   const greaterValues = sumOfSubarrayMaximum(arr);
+
+//   return (greaterValues - smallerValues + MOD) % MOD;
+// };
+
+// console.log(sumOfSubarrayRanges([1, 4, 3, 2]));
+
+const asteroidCollisions = (asteroids: number[]) => {
+  const stack: number[] = [];
+  const n = asteroids.length;
+
+  for (let i = 0; i < n; i++) {
+    const current = asteroids[i];
+    let alive = true;
+    
+    while (alive && stack[stack.length - 1] > 0 && current < 0) {
+      const top = stack[stack.length - 1];
+      if (Math.abs(top) < Math.abs(current)) {
+        stack.pop();
+        continue;
+      } else if (Math.abs(top) === Math.abs(current)) {
+        stack.pop();
+        alive = false;
+        break;
+      } else {
+        alive = false;
+        break;
+      }
+    }
+    if (alive) {
+      stack.push(current);
+    }
+  }
+  return stack;
+};
+console.log(asteroidCollisions([3, 5, -6, 2, -1, 4]));
