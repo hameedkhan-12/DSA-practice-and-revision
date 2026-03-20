@@ -452,32 +452,32 @@ const sumOfSubarrayMaximum = (arr: number[]) => {
 
 // console.log(sumOfSubarrayRanges([1, 4, 3, 2]));
 
-const asteroidCollisions = (asteroids: number[]) => {
-  const stack: number[] = [];
-  const n = asteroids.length;
+// const asteroidCollisions = (asteroids: number[]) => {
+//   const stack: number[] = [];
+//   const n = asteroids.length;
 
-  for (let i = 0; i < n; i++) {
-    const current = asteroids[i];
-    let alive = true;
+//   for (let i = 0; i < n; i++) {
+//     const current = asteroids[i];
+//     let alive = true;
     
-    while (alive && stack[stack.length - 1] > 0 && current < 0) {
-      const top = stack[stack.length - 1];
-      if (Math.abs(top) < Math.abs(current)) {
-        stack.pop();
-        continue;
-      } else if (Math.abs(top) === Math.abs(current)) {
-        stack.pop();
-        alive = false;
-        break;
-      } else {
-        alive = false;
-        break;
-      }
-    }
-    if (alive) {
-      stack.push(current);
-    }
-  }
-  return stack;
-};
-console.log(asteroidCollisions([3, 5, -6, 2, -1, 4]));
+//     while (alive && stack[stack.length - 1] > 0 && current < 0) {
+//       const top = stack[stack.length - 1];
+//       if (Math.abs(top) < Math.abs(current)) {
+//         stack.pop();
+//         continue;
+//       } else if (Math.abs(top) === Math.abs(current)) {
+//         stack.pop();
+//         alive = false;
+//         break;
+//       } else {
+//         alive = false;
+//         break;
+//       }
+//     }
+//     if (alive) {
+//       stack.push(current);
+//     }
+//   }
+//   return stack;
+// };
+// console.log(asteroidCollisions([3, 5, -6, 2, -1, 4]));
