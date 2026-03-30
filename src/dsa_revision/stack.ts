@@ -1,49 +1,100 @@
-const nextSmallerElementLeftIndex = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const arrIndex = new Array(n);
+// const nextSmallerElementLeftIndex = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const arrIndex = new Array(n);
 
-  for (let i = 0; i < n; i++) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
+//       stack.pop();
+//     }
+//     arrIndex[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+//     stack.push(i);
+//   }
+//   return arrIndex;
+// };
+
+// console.log(nextSmallerElementLeftIndex([2, 1, 5, 6, 2, 3]));
+
+// const nextSmallerElementRightIndex = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const arrIndex = new Array(n);
+
+//   for (let i = n - 1; i >= 0; i--) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
+//       stack.pop();
+//     }
+
+//     arrIndex[i] = stack.length === 0 ? n : stack[stack.length - 1];
+//     stack.push(i);
+//   }
+
+//   return arrIndex;
+// };
+
+// console.log(nextSmallerElementRightIndex([2, 1, 5, 6, 2, 3]));
+
+// const largestRectangleInHistogram = (arr: number[]) => {
+//   const leftIndex = nextSmallerElementLeftIndex(arr);
+//   const rightIndex = nextSmallerElementRightIndex(arr);
+
+//   let largestArea = 0;
+//   for (let i = 0; i < arr.length; i++) {
+//     const area = arr[i] * (rightIndex[i] - leftIndex[i] - 1);
+//     largestArea = Math.max(area, largestArea);
+//   }
+
+//   return largestArea;
+// };
+// console.log(largestRectangleInHistogram([2, 1, 5, 6, 2, 3]));
+
+// const maximalRectangle = (matrix: number[][]) => {
+//   if (matrix.length === 0) return 0;
+
+//   const rows = matrix.length;
+//   const cols = matrix[0].length;
+//   const heights = new Array(cols).fill(0);
+//   let maxArea = 0;
+
+//   for (let row = 0; row < rows; row++) {
+//     for (let col = 0; col < cols; col++) {
+//       if (matrix[row][col] === 1) {
+//         heights[col] += 1;
+//       } else {
+//         heights[col] = 0;
+//       }
+//     }
+//     console.log("HEIGHTS ", heights);
+//     maxArea = Math.max(maxArea, largestRectangleInHistogram(heights));
+//   }
+//   return maxArea;
+// };
+// console.log(
+//   maximalRectangle([
+//     [1, 0, 1, 1, 0],
+//     [1, 1, 0, 1, 1],
+//     [1, 0, 1, 1, 1],
+//     [1, 0, 1, 1, 1],
+//     [1, 0, 1, 1, 1],
+//   ]),
+// );
+
+const removeKDigits = (arr: string, k: number) => {
+  const stack: string[] = [];
+
+  for (let num of arr) {
+    while (k > 0 && stack.length > 0 && stack[stack.length - 1] > num) {
       stack.pop();
+      k--;
     }
-    arrIndex[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
-    stack.push(i);
+    stack.push(num);
   }
-  return arrIndex;
-};
-
-console.log(nextSmallerElementLeftIndex([2, 1, 5, 6, 2, 3]));
-
-const nextSmallerElementRightIndex = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const arrIndex = new Array(n);
-
-  for (let i = n - 1; i >= 0; i--) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
-      stack.pop();
-    }
-
-    arrIndex[i] = stack.length === 0 ? n : stack[stack.length - 1];
-    stack.push(i);
+  if (k > 0) {
+    stack.pop();
+    k--;
   }
 
-  return arrIndex;
+  return stack.join('');
 };
 
-console.log(nextSmallerElementRightIndex([2, 1, 5, 6, 2, 3]));
-
-const largestRectangleInHistogram = (arr: number[]) => {
-  const leftIndex = nextSmallerElementLeftIndex(arr);
-  const rightIndex = nextSmallerElementRightIndex(arr);
-
-  let largestArea = 0;
-  for (let i = 0; i < arr.length; i++) {
-    const area = arr[i] * (rightIndex[i] - leftIndex[i] - 1);
-    largestArea = Math.max(area, largestArea);
-  }
-
-  return largestArea;
-};
-console.log(largestRectangleInHistogram([2, 1, 5, 6, 2, 3]));
+console.log(removeKDigits("1432219", 3));

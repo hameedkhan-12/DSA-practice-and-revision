@@ -344,103 +344,103 @@ function dailyTemperatures(temperatures: number[]): number[] {
 
 // console.log(sumSubArrayMin([3, 1, 2, 4]));
 
-const nextSmallerLeftIndexRange = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const left = new Array(n);
+// const nextSmallerLeftIndexRange = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const left = new Array(n);
 
-  for (let i = 0; i < n; i++) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
-      stack.pop();
-    }
-    left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
-    stack.push(i);
-  }
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] > arr[i]) {
+//       stack.pop();
+//     }
+//     left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+//     stack.push(i);
+//   }
 
-  return left;
-};
-const nextSmallerRightIndexRange = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const right = new Array(n);
+//   return left;
+// };
+// const nextSmallerRightIndexRange = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const right = new Array(n);
 
-  for (let i = n - 1; i >= 0; i--) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
-      stack.pop();
-    }
+//   for (let i = n - 1; i >= 0; i--) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] >= arr[i]) {
+//       stack.pop();
+//     }
 
-    right[i] = stack.length === 0 ? n : stack[stack.length - 1];
-    stack.push(i);
-  }
+//     right[i] = stack.length === 0 ? n : stack[stack.length - 1];
+//     stack.push(i);
+//   }
 
-  return right;
-};
-const nextGreaterLeftIndexRange = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const left = new Array(n);
+//   return right;
+// };
+// const nextGreaterLeftIndexRange = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const left = new Array(n);
 
-  for (let i = 0; i < n; i++) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] < arr[i]) {
-      stack.pop();
-    }
-    left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
-    stack.push(i);
-  }
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] < arr[i]) {
+//       stack.pop();
+//     }
+//     left[i] = stack.length === 0 ? -1 : stack[stack.length - 1];
+//     stack.push(i);
+//   }
 
-  return left;
-};
+//   return left;
+// };
 
-const nextGreaterRightIndexRange = (arr: number[]) => {
-  const n = arr.length;
-  const stack: number[] = [];
-  const right = new Array(n);
+// const nextGreaterRightIndexRange = (arr: number[]) => {
+//   const n = arr.length;
+//   const stack: number[] = [];
+//   const right = new Array(n);
 
-  for (let i = n - 1; i >= 0; i--) {
-    while (stack.length > 0 && arr[stack[stack.length - 1]] <= arr[i]) {
-      stack.pop();
-    }
+//   for (let i = n - 1; i >= 0; i--) {
+//     while (stack.length > 0 && arr[stack[stack.length - 1]] <= arr[i]) {
+//       stack.pop();
+//     }
 
-    right[i] = stack.length === 0 ? n : stack[stack.length - 1];
-    stack.push(i);
-  }
-  return right;
-};
+//     right[i] = stack.length === 0 ? n : stack[stack.length - 1];
+//     stack.push(i);
+//   }
+//   return right;
+// };
 
-const sumOfSubarrayMinimum = (arr: number[]) => {
-  const nextSmallerLeftValues = nextSmallerLeftIndexRange(arr);
-  const nextSmallerRightValues = nextSmallerRightIndexRange(arr);
+// const sumOfSubarrayMinimum = (arr: number[]) => {
+//   const nextSmallerLeftValues = nextSmallerLeftIndexRange(arr);
+//   const nextSmallerRightValues = nextSmallerRightIndexRange(arr);
 
-  let sum = 0;
-  const MOD = 1_000_000_007;
+//   let sum = 0;
+//   const MOD = 1_000_000_007;
 
-  for (let i = 0; i < arr.length; i++) {
-    const left = i - nextSmallerLeftValues[i];
-    const right = nextSmallerRightValues[i] - i;
+//   for (let i = 0; i < arr.length; i++) {
+//     const left = i - nextSmallerLeftValues[i];
+//     const right = nextSmallerRightValues[i] - i;
 
-    const contribution = (arr[i] * left * right) % MOD;
-    sum = (sum + contribution) % MOD;
-  }
+//     const contribution = (arr[i] * left * right) % MOD;
+//     sum = (sum + contribution) % MOD;
+//   }
 
-  return sum;
-};
+//   return sum;
+// };
 
-const sumOfSubarrayMaximum = (arr: number[]) => {
-  const nextGreaterLeftValues = nextGreaterLeftIndexRange(arr);
-  const nextGreaterRightValues = nextGreaterRightIndexRange(arr);
+// const sumOfSubarrayMaximum = (arr: number[]) => {
+//   const nextGreaterLeftValues = nextGreaterLeftIndexRange(arr);
+//   const nextGreaterRightValues = nextGreaterRightIndexRange(arr);
 
-  let sum = 0;
-  const MOD = 1_000_000_007;
+//   let sum = 0;
+//   const MOD = 1_000_000_007;
 
-  for (let i = 0; i < arr.length; i++) {
-    const left = i - nextGreaterLeftValues[i];
-    const right = nextGreaterRightValues[i] - i;
+//   for (let i = 0; i < arr.length; i++) {
+//     const left = i - nextGreaterLeftValues[i];
+//     const right = nextGreaterRightValues[i] - i;
 
-    const contribution = (arr[i] * left * right) % MOD;
-    sum = (sum + contribution) % MOD;
-  }
-  return sum;
-};
+//     const contribution = (arr[i] * left * right) % MOD;
+//     sum = (sum + contribution) % MOD;
+//   }
+//   return sum;
+// };
 // const sumOfSubarrayRanges = (arr: number[]) => {
 //   const MOD = 1_000_000_007;
 
@@ -481,3 +481,4 @@ const sumOfSubarrayMaximum = (arr: number[]) => {
 //   return stack;
 // };
 // console.log(asteroidCollisions([3, 5, -6, 2, -1, 4]));
+
