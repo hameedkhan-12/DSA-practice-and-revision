@@ -79,22 +79,74 @@
 //   ]),
 // );
 
-const removeKDigits = (arr: string, k: number) => {
-  const stack: string[] = [];
+// const removeKDigits = (arr: string, k: number) => {
+//   const stack: string[] = [];
 
-  for (let num of arr) {
-    while (k > 0 && stack.length > 0 && stack[stack.length - 1] > num) {
-      stack.pop();
-      k--;
+//   for (let num of arr) {
+//     while (k > 0 && stack.length > 0 && stack[stack.length - 1] > num) {
+//       stack.pop();
+//       k--;
+//     }
+//     stack.push(num);
+//   }
+//   if (k > 0) {
+//     stack.pop();
+//     k--;
+//   }
+
+//   return stack.join('');
+// };
+
+// console.log(removeKDigits("1432219", 3));
+
+// const stockSpan = (prices: number[]) => {
+//   const stack: number[] = [];
+//   let n = prices.length;
+//   const span = new Array(n);
+//   console.log("SPAN");
+
+//   for (let i = 0; i < n; i++) {
+//     while (stack.length > 0 && prices[i] >= prices[stack[stack.length - 1]]) {
+//       stack.pop();
+//     }
+
+//     span[i] = stack.length === 0 ? i + 1 : i - stack[stack.length - 1];
+//     stack.push(i);
+//   }
+
+//   return span;
+// };
+
+// console.log(stockSpan([100, 80, 60, 70, 60, 75, 85]));
+
+class StockSpanner {
+  private stack: [number, number][];
+
+  constructor() {
+    this.stack = [];
+  }
+
+  next(price: number): number {
+    let span = 1;
+
+    while (
+      this.stack.length > 0 &&
+      this.stack[this.stack.length - 1][0] <= price
+    ) {
+      span += this.stack.pop()![1];
     }
-    stack.push(num);
-  }
-  if (k > 0) {
-    stack.pop();
-    k--;
-  }
 
-  return stack.join('');
-};
+    this.stack.push([price, span]);
+    console.log(this.stack);
+    return span;
+  }
+}
 
-console.log(removeKDigits("1432219", 3));
+const stockSpanner = new StockSpanner()
+console.log(stockSpanner.next(100))
+console.log(stockSpanner.next(80))
+console.log(stockSpanner.next(60))
+console.log(stockSpanner.next(70))
+console.log(stockSpanner.next(60))
+console.log(stockSpanner.next(75))
+console.log(stockSpanner.next(85))
