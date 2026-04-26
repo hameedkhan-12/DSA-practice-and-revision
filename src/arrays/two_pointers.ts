@@ -176,43 +176,81 @@
 
 // console.log(minSizeArrLength([2,3,1,2,4,3], 7))
 
-const maxScore = (cardPoints: number[], k: number) => {
-  let lSum = 0;
-  let rSum = 0;
-  let maxSum = 0;
-  for (let i = 0; i < k; i++) {
-    lSum += cardPoints[i]
-    console.log("LEft SUMMMMMMMMMM", lSum)
-    maxSum = lSum;
-  }
-  let rightIndex = cardPoints.length - 1;
-  for (let j = k - 1; j >= 0; j--) {
-    lSum = lSum - cardPoints[j];
-    rSum = rSum + cardPoints[rightIndex];
-    rightIndex--;
-    maxSum = Math.max(maxSum, lSum+rSum)
-    console.log("Left SUm", lSum);
-    console.log("MAX SUMmmmmm", maxSum)
-  }
-};
+// const maxScore = (cardPoints: number[], k: number) => {
+//   let lSum = 0;
+//   let rSum = 0;
+//   let maxSum = 0;
+//   for (let i = 0; i < k; i++) {
+//     lSum += cardPoints[i]
+//     console.log("LEft SUMMMMMMMMMM", lSum)
+//     maxSum = lSum;
+//   }
+//   let rightIndex = cardPoints.length - 1;
+//   for (let j = k - 1; j >= 0; j--) {
+//     lSum = lSum - cardPoints[j];
+//     rSum = rSum + cardPoints[rightIndex];
+//     rightIndex--;
+//     maxSum = Math.max(maxSum, lSum+rSum)
+//     console.log("Left SUm", lSum);
+//     console.log("MAX SUMmmmmm", maxSum)
+//   }
+// };
 
-console.log(maxScore([6, 2, 3, 4, 7, 2, 1, 7, 1], 4));
+// console.log(maxScore([6, 2, 3, 4, 7, 2, 1, 7, 1], 4));
 
-function lengthOfLongestSubstringOptimal(s: string): number {
-    let map = new Map<string, number>();
-    let left = 0;
+// function lengthOfLongestSubstringOptimal(s: string): number {
+//     let map = new Map<string, number>();
+//     let left = 0;
+//     let maxLen = 0;
+
+//     for (let right = 0; right < s.length; right++) {
+//         if (map.has(s[right])) {
+//             left = Math.max(left, map.get(s[right])! + 1);
+//         }
+
+//         map.set(s[right], right);
+//         maxLen = Math.max(maxLen, right - left + 1);
+//     }
+
+//     return maxLen;
+// }
+
+// console.log(lengthOfLongestSubstringOptimal("abcabcbb"));
+
+// const maxConsOnes = (nums: number[], k: number) => {
+//   let left = 0;
+//   let maxLen = 0;
+//   let zeroes = 0;
+
+//   for (let right = 0; right < nums.length; right++) {
+//     if (nums[right] === 0) zeroes++;
+
+//     while (zeroes > k) {
+//       if (nums[left] === 0) zeroes--;
+//       left++;
+//     }
+
+//     maxLen = Math.max(maxLen, right - left + 1);
+//   }
+//   return maxLen;
+// };
+
+// console.log(maxConsOnes([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2));
+
+function findMaxConsecutiveOnes(nums: number[]): number {
+    let count = 0;
     let maxLen = 0;
 
-    for (let right = 0; right < s.length; right++) {
-        if (map.has(s[right])) {
-            left = Math.max(left, map.get(s[right])! + 1);
+    for(let right = 0; right<nums.length; right++){
+        if(nums[right] === 1){
+           count++;
+           maxLen = Math.max(maxLen, count)
         }
-
-        map.set(s[right], right);
-        maxLen = Math.max(maxLen, right - left + 1);
+        else {
+          count = 0
+        }
     }
-
     return maxLen;
-}
+};
 
-console.log(lengthOfLongestSubstringOptimal("abcabcbb"));
+console.log(findMaxConsecutiveOnes([1,1,0,1,1,1]))
