@@ -237,20 +237,69 @@
 
 // console.log(maxConsOnes([1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0], 2));
 
-function findMaxConsecutiveOnes(nums: number[]): number {
-    let count = 0;
-    let maxLen = 0;
+// function findMaxConsecutiveOnes(nums: number[]): number {
+//     let count = 0;
+//     let maxLen = 0;
 
-    for(let right = 0; right<nums.length; right++){
-        if(nums[right] === 1){
-           count++;
-           maxLen = Math.max(maxLen, count)
-        }
-        else {
-          count = 0
-        }
+//     for(let right = 0; right<nums.length; right++){
+//         if(nums[right] === 1){
+//            count++;
+//            maxLen = Math.max(maxLen, count)
+//         }
+//         else {
+//           count = 0
+//         }
+//     }
+//     return maxLen;
+// };
+
+// console.log(findMaxConsecutiveOnes([1,1,0,1,1,1]))
+
+// const totalFruits = (fruits: number[]): number => {
+//   let left = 0;
+//   let map = new Map<number, number>();
+//   let maxLen = 0;
+//   for (let right = 0; right < fruits.length; right++) {
+//     map.set(fruits[right], (map.get(fruits[right])! || 0) + 1);
+
+//     while (map.size > 2) {
+//       map.set(fruits[left], map.get(fruits[left])! - 1);
+
+//       if (map.get(fruits[left]) === 0) {
+//         map.delete(fruits[left]);
+//       }
+//       left++;
+//     }
+//     maxLen = Math.max(maxLen, right - left + 1);
+//   }
+
+//   return maxLen
+// };
+
+// console.log(totalFruits([3,3,3,1,2,1,1,2,3,3,4]))
+
+const longestSubstringWithKDistElements = (str: string, k: number) => {
+  let map = new Map<string, number>();
+  let left = 0;
+  let maxLen = 0;
+
+  for (let right = 0; right < str.length; right++) {
+    map.set(str[right], (map.get(str[right])! || 0) + 1);
+
+    while (map.size > k) {
+      map.set(str[left], map.get(str[left])! - 1);
+      if (map.get(str[left]) === 0) {
+        map.delete(str[left]);
+      }
+      left++;
     }
-    return maxLen;
+
+    maxLen = Math.max(maxLen, right - left + 1);
+  }
+
+  return maxLen;
 };
 
-console.log(findMaxConsecutiveOnes([1,1,0,1,1,1]))
+console.log(longestSubstringWithKDistElements("aaabbccccd", 2));
+
+
