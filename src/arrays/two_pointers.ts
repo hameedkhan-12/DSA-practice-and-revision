@@ -278,19 +278,88 @@
 
 // console.log(totalFruits([3,3,3,1,2,1,1,2,3,3,4]))
 
-const longestSubstringWithKDistElements = (str: string, k: number) => {
+// const longestSubstringWithKDistElements = (str: string, k: number) => {
+//   let map = new Map<string, number>();
+//   let left = 0;
+//   let maxLen = 0;
+
+//   for (let right = 0; right < str.length; right++) {
+//     map.set(str[right], (map.get(str[right])! || 0) + 1);
+
+//     while (map.size > k) {
+//       map.set(str[left], map.get(str[left])! - 1);
+//       if (map.get(str[left]) === 0) {
+//         map.delete(str[left]);
+//       }
+//       left++;
+//     }
+
+//     maxLen = Math.max(maxLen, right - left + 1);
+//   }
+
+//   return maxLen;
+// };
+
+// console.log(longestSubstringWithKDistElements("aaabbccccd", 2));
+
+// const noOfSubstr = (str: string): number => {
+//   let map = new Map<string, number>();
+//   let left = 0;
+//   let maxLen = 0;
+
+//   for (let right = 0; right < str.length; right++) {
+//     map.set(str[right], (map.get(str[right])! || 0) + 1);
+
+//     while (map.size === 3) {
+//       map.set(str[left], map.get(str[left])! - 1);
+//       if (map.get(str[left]) === 0) {
+//         map.delete(str[left]);
+//       }
+//       left++;
+//       maxLen += (str.length - right);
+//       console.log("MMMMMM", maxLen);
+//     }
+//   }
+//   return maxLen;
+// };
+
+// console.log(noOfSubstr("abcabc"));
+
+// function numberOfSubstrings(s: string): number {
+//     let last = { a: -1, b: -1, c: -1 };
+//     let count = 0;
+
+//     for (let i = 0; i < s.length; i++) {
+//         last[s[i] as 'a' | 'b' | 'c'] = i;
+//         let minIndex = Math.min(last.a, last.b, last.c);
+
+//         if (minIndex !== -1) {
+//             count += minIndex + 1;
+//         }
+//     }
+
+//     return count;
+// }
+
+// console.log(numberOfSubstrings("abcabc"))
+
+const longestRepeatingCharReplacement = (s: string, k: number): number => {
   let map = new Map<string, number>();
   let left = 0;
   let maxLen = 0;
+  let maxFreq = 0;
 
-  for (let right = 0; right < str.length; right++) {
-    map.set(str[right], (map.get(str[right])! || 0) + 1);
+  for (let right = 0; right < s.length; right++) {
+    let ch = s[right];
+    map.set(ch, (map.get(ch)! || 0) + 1);
 
-    while (map.size > k) {
-      map.set(str[left], map.get(str[left])! - 1);
-      if (map.get(str[left]) === 0) {
-        map.delete(str[left]);
-      }
+    maxFreq = Math.max(maxFreq, map.get(ch)!);
+
+    let windowSize = right - left + 1;
+
+    if (windowSize - maxFreq > k) {
+      let leftChar = s[left];
+      map.set(leftChar, map.get(leftChar)! - 1);
       left++;
     }
 
@@ -300,6 +369,4 @@ const longestSubstringWithKDistElements = (str: string, k: number) => {
   return maxLen;
 };
 
-console.log(longestSubstringWithKDistElements("aaabbccccd", 2));
-
-
+console.log(longestRepeatingCharReplacement("AABABBA", 2));
