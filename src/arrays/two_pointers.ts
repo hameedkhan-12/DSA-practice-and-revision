@@ -343,30 +343,46 @@
 
 // console.log(numberOfSubstrings("abcabc"))
 
-const longestRepeatingCharReplacement = (s: string, k: number): number => {
-  let map = new Map<string, number>();
+// const longestRepeatingCharReplacement = (s: string, k: number): number => {
+//   let map = new Map<string, number>();
+//   let left = 0;
+//   let maxLen = 0;
+//   let maxFreq = 0;
+
+//   for (let right = 0; right < s.length; right++) {
+//     let ch = s[right];
+//     map.set(ch, (map.get(ch)! || 0) + 1);
+
+//     maxFreq = Math.max(maxFreq, map.get(ch)!);
+
+//     let windowSize = right - left + 1;
+
+//     if (windowSize - maxFreq > k) {
+//       let leftChar = s[left];
+//       map.set(leftChar, map.get(leftChar)! - 1);
+//       left++;
+//     }
+
+//     maxLen = Math.max(maxLen, right - left + 1);
+//   }
+
+//   return maxLen;
+// };
+
+// console.log(longestRepeatingCharReplacement("AABABBA", 2));
+
+const numSubarraysWithSum = (nums: number[], goal: number) => {
+  let map = new Map<number, number>();
   let left = 0;
   let maxLen = 0;
-  let maxFreq = 0;
 
-  for (let right = 0; right < s.length; right++) {
-    let ch = s[right];
-    map.set(ch, (map.get(ch)! || 0) + 1);
+  for (let right = 0; right < nums.length; right++) {
+    map.set(nums[right], (map.get(nums[right])! || 0) + 1);
 
-    maxFreq = Math.max(maxFreq, map.get(ch)!);
-
-    let windowSize = right - left + 1;
-
-    if (windowSize - maxFreq > k) {
-      let leftChar = s[left];
-      map.set(leftChar, map.get(leftChar)! - 1);
-      left++;
-    }
-
-    maxLen = Math.max(maxLen, right - left + 1);
+    let window = right - left + 1
+    console.log("Window", window)
+    // while(window - goal > )
   }
-
-  return maxLen;
 };
 
-console.log(longestRepeatingCharReplacement("AABABBA", 2));
+console.log(numSubarraysWithSum([1, 0, 1, 0, 1], 2));
